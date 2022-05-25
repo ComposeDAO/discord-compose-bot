@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node -O '{\"module\":\"commonjs\"}' index.ts"
+    "start": "ts-node -O '{\"module\":\"commonjs\"}' index.ts",
+    "start:example": "ts-node -O '{\"module\":\"commonjs\"}' example.ts"
   },
   "repository": {
     "type": "git",

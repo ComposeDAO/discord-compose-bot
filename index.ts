@@ -1,25 +1,28 @@
-require("dotenv").config();
+import "dotenv/config";
+import fs from "fs";
+import { Client, Intents } from "discord.js";
 
 const prefix = process.env.PREFIX || "?";
-const guild_id = process.env.GUILD_ID;
-const verified_role_id = process.env.ROLE_ID;
-const verification_channel_id = process.env.CHANNEL_ID;
+const GUILD_ID = process.env.GUILD_ID;
+const VERIFIED_ROLE_ID = process.env.VERIFIED_ROLE_ID;
+const VERIFICATION_CHANNEL_ID = process.env.VERIFICATION_CHANNEL_ID;
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
-const fs = require("fs");
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+});
 let roleName = "";
 
 client.on("ready", async () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  await client.user.setActivity("Verify in #verification");
-  roleName = client.guilds.get(guild_id).roles.get(verified_role_id).name;
+  console.log(`Logged in as ${client.user!.tag}!`);
+  await client.user!.setActivity("Verify in #verification");
+  roleName = client.guilds.get(GUILD_ID).roles.get(VERIFIED_ROLE_ID).name;
 });
 
 client.on("message", (msg) => {
   const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 
-  const command = args.shift().toLowerCase();
+  const command = args.shift()!.toLowerCase();
 
   // svm = set verification message
   if (
@@ -28,7 +31,7 @@ client.on("message", (msg) => {
     command === "svm"
   ) {
     // If sender of message is not the guild owner, cancel action
-    if (msg.member.guild.ownerID !== msg.member.id) return;
+    if (msg.member!.guild.ownerId !== msg.member!.id) return;
 
     const introMessageContent = fs.readFileSync("intro-message.md", {
       encoding: "utf8",
@@ -45,7 +48,7 @@ client.on("message", (msg) => {
 
     const embed = new Discord.RichEmbed();
 
-    const welcomeTitle = `Welcome to ${msg.guild.name}!`;
+    const welcomeTitle = `Welcome to ${msg.guild!.name}!`;
 
     embed.addField(welcomeTitle, introMessageContent);
     embed.addField("🎗 Community Guidelines", communityGuidelinesContent);
@@ -70,7 +73,7 @@ client.on("messageReactionAdd", ({ message: { channel } }, user) => {
       .fetchMember(user)
       .then((member) => {
         member
-          .addRole(verified_role_id)
+          .addRole(VERIFIED_ROLE_ID)
           .then(() => {
             console.log(
               `The ${roleName} has been removed from member ${user.tag} successfully!`
@@ -90,7 +93,7 @@ client.on("messageReactionRemove", ({ message: { channel } }, user) => {
       .fetchMember(user)
       .then((member) => {
         member
-          .removeRole(verified_role_id)
+          .removeRole(VERIFIED_ROLE_ID)
           .then(() => {
             console.log(
               `The ${roleName} has been removed from member ${user.tag} successfully!`
@@ -134,7 +137,7 @@ client.on("raw", ({ d: data, t: event }) => {
 client.on("guildMemberRemove", function (member) {
   try {
     const { messageId } = JSON.parse(fs.readFileSync("data.json"));
-    const channel = client.channels.get(verification_channel_id);
+    const channel = client.channels.get(VERIFICATION_CHANNEL_ID);
     channel
       .fetchMessage(messageId)
       .then((message) => {
@@ -150,8 +153,8 @@ client.on("guildMemberRemove", function (member) {
   }
 });
 
-if (TOKEN !== null) {
-  client.login(TOKEN);
+if (DISCORD_TOKEN !== null) {
+  client.login(DISCORD_TOKEN);
 } else {
   console.error("Bot token is empty!");
 }
