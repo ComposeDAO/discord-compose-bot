@@ -136,7 +136,7 @@ client.on("raw", ({ d: data, t: event }) => {
 
 client.on("guildMemberRemove", function (member) {
   try {
-    const { messageId } = JSON.parse(fs.readFileSync("data.json"));
+    const { messageId } = JSON.parse(fs.readFileSync("data.json").toString());
     const channel = client.channels.get(VERIFICATION_CHANNEL_ID);
     channel
       .fetchMessage(messageId)
