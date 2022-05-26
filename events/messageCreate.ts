@@ -1,7 +1,7 @@
 const PREFIX = process.env.PREFIX || "!";
 
 module.exports = {
-  name: "message",
+  name: "messageCreate",
   on: true,
   async execute(msg, client) {
     if (!msg.content.startsWith(PREFIX)) return;
