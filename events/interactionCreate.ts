@@ -1,12 +1,33 @@
-export const PREFIX = process.env.PREFIX || "!";
+import "dotenv/config";
 
 module.exports = {
   name: "interactionCreate",
   on: true,
   async execute(interaction, client) {
     if (interaction.isButton()) {
-      interaction.reply("you clicked " + interaction.customId);
-      console.log(interaction);
+      const MEMBER_ROLE_ID = process.env.MEMBER_ROLE_ID;
+      const CONTRIBUTOR_ROLE_ID = process.env.CONTRIBUTOR_ROLE_ID;
+
+      const member = interaction.member;
+      if (interaction.customId === "member") {
+        interaction.guild.roles
+          .fetch(MEMBER_ROLE_ID)
+          .then((role) => {
+            member.roles.add(role);
+            interaction.reply(`Successfully added member role`);
+          })
+          .catch(console.error());
+      }
+
+      if (interaction.customId === "contributor") {
+        interaction.guild.roles
+          .fetch(CONTRIBUTOR_ROLE_ID)
+          .then((role) => {
+            member.roles.add(role);
+            interaction.reply(`Successfully added contributor role`);
+          })
+          .catch(console.error());
+      }
     }
 
     if (!interaction.isCommand()) return;
