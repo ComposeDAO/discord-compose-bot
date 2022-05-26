@@ -1,4 +1,4 @@
-const PREFIX = process.env.PREFIX || "!";
+export const PREFIX = process.env.PREFIX || "!";
 
 module.exports = {
   name: "messageCreate",
@@ -14,7 +14,7 @@ module.exports = {
       await client.commands.get(command).execute(msg);
     } catch (error) {
       console.error();
-      await msg.reply({ content: "there was an error!" });
+      await msg.reply({ content: "there was an error!", ephemeral: true });
     }
   },
 };
