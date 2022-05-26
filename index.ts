@@ -25,27 +25,18 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
-client.on("ready", function (e) {
-  console.log(`Logged in as ${client.user!.tag}!`);
-});
+//retrieves the event files in an array
+const eventFiles = fs
+  .readdirSync("./events")
+  .filter((file) => file.endsWith(".ts"));
 
-client.on("message", async (msg) => {
-  if (!msg.content.startsWith(PREFIX)) return;
-
-  const command = msg.content.substring(1);
-
-  if (!client.commands.has(command)) return;
-
-  try {
-    await client.commands.get(command).execute(msg);
-  } catch (error) {
-    console.error();
-    await msg.reply({ content: "there was an error!" });
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args, client));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args, client));
   }
-});
-
-client.on("interactionCreate", (interaction) => {
-  console.log(interaction);
-});
+}
 
 client.login(process.env.DISCORD_TOKEN);
