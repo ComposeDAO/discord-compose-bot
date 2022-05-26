@@ -4,6 +4,11 @@ module.exports = {
   name: "interactionCreate",
   on: true,
   async execute(interaction, client) {
+    if (interaction.isButton()) {
+      interaction.reply("you clicked " + interaction.customId);
+      console.log(interaction);
+    }
+
     if (!interaction.isCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
