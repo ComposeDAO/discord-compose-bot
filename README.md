@@ -1,4 +1,7 @@
 # discord-verification-bot
 
-Following -> https://github.com/crock/verification-bot <br>
-and -> https://www.alpharithms.com/how-to-code-a-discord-bot-in-javascript-444917/
+## Usage
+
+`npm run start` - starts discord bot
+
+To add commands and events, follow existing files under `commands` and `events`. `index.ts` does not need to be modified.
