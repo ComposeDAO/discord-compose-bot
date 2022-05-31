@@ -1,11 +1,15 @@
 import * as trpc from "@trpc/server";
 import express from "express";
 import * as trpcExpress from "@trpc/server/adapters/express";
+import { z } from "zod";
 import cors from "cors";
+import { joined } from "utils/joined";
 
-const appRouter = trpc.router().query("hello", {
-  resolve() {
-    return `Hello World!`;
+const appRouter = trpc.router().query("isJoined", {
+  input: z.string(),
+  resolve: async ({ input }) => {
+    const isJoined = await joined(input);
+    return isJoined;
   },
 });
 
