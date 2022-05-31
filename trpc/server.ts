@@ -3,15 +3,25 @@ import express from "express";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { z } from "zod";
 import cors from "cors";
-import { joined } from "utils/joined";
+import { joined } from "../utils/joined";
+import { verifyUser } from "../utils/verifyUser";
 
-const appRouter = trpc.router().query("isJoined", {
-  input: z.string(),
-  resolve: async ({ input }) => {
-    const isJoined = await joined(input);
-    return isJoined;
-  },
-});
+const appRouter = trpc
+  .router()
+  .query("isJoined", {
+    input: z.string(),
+    resolve: async ({ input }) => {
+      const isJoined = await joined(input);
+      return isJoined;
+    },
+  })
+  .query("verifyDiscordUser", {
+    input: z.string(),
+    resolve: async ({ input }) => {
+      const isVerified = await verifyUser(input);
+      return isVerified;
+    },
+  });
 
 export type AppRouter = typeof appRouter;
 
