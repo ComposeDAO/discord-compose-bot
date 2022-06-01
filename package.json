@@ -8,7 +8,7 @@
     "start:server": "ts-node --project ./tsconfig.json trpc/server.ts",
     "start:example": "ts-node -O '{\"module\":\"commonjs\"}' src/example.ts",
     "deploy-commands": "ts-node --project ./tsconfig.json src/deploy-commands.ts",
-    "test": "ts-node --project ./tsconfig.json utils/joined.ts"
+    "test": "ts-node --project ./tsconfig.json utils/verifyUser.ts"
   },
   "repository": {
     "type": "git",
