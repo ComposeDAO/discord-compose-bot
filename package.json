@@ -23,11 +23,13 @@
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
+    "@trpc/client": "^9.23.6",
     "@trpc/server": "^9.23.6",
     "discord-api-types": "^0.33.0",
     "discord.js": "^13.7.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "secure-remote-password": "^0.3.1",
     "zod": "^3.17.3"
   },
   "devDependencies": {

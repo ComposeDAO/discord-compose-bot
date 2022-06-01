@@ -16,9 +16,12 @@ const appRouter = trpc
     },
   })
   .query("verifyDiscordUser", {
-    input: z.string(),
+    input: z.object({
+      nym: z.string(),
+      discordUserID: z.string(),
+    }),
     resolve: async ({ input }) => {
-      const isVerified = await verifyUser(input);
+      const isVerified = await verifyUser(input.nym, input.discordUserID);
       return isVerified;
     },
   });
