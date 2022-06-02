@@ -76,4 +76,7 @@ export async function verifyUser(nym: string, userID: string) {
   return verified;
 }
 
-verifyUser("", "979516521166569514");
+verifyUser(
+  "1adfe5f5406f79d4c1d8a4ee320f82e1e76eee08cd41437ad7cbbbf24657cf231ba121500a9af6fa41fcae5b6041fcfa90f028040034538ac7e2b4f3cce2c876",
+  "979516521166569514"
+);

@@ -1,4 +1,8 @@
 import { createTRPCClient } from "@trpc/client";
+import fetch from "node-fetch";
+
+const globalAny = global as any;
+globalAny.fetch = fetch;
 
 export const client = createTRPCClient({
   url: "https://0ntdlvgj79.execute-api.us-east-1.amazonaws.com",
@@ -6,13 +10,13 @@ export const client = createTRPCClient({
 
 export async function serverEphemeral(
   discordHandle: string,
-  serverPublicEphemeral: string
+  clientPublicEphemeral: string
 ) {
   const response: { salt: string; serverPublicEphemeral: string } =
     // @ts-ignore:next-line
     await client.query("SRP-Ephemeral", {
       discordHandle: discordHandle,
-      serverPublicEphemeral: serverPublicEphemeral,
+      clientPublicEphemeral: clientPublicEphemeral,
     });
 
   return response;
