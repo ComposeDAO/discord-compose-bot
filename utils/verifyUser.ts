@@ -27,6 +27,7 @@ export async function verifyUser(nym: string, userID: string) {
     const member = await server.members.fetch(userID);
     const discordHandle = member.user.username;
     const clientEphemeral = srp.generateEphemeral();
+    const username = "";
 
     //Send discordHandle and clientEphemeral to server
     //Get salt and serverEphemeral.public from server
@@ -35,14 +36,14 @@ export async function verifyUser(nym: string, userID: string) {
       clientEphemeral.public
     );
     const salt = serverResult.salt;
-    const serverEphemeralPublic = serverResult.serverEphemeralPublic;
+    const serverPublicEphemeral = serverResult.serverPublicEphemeral;
 
-    const privateKey = srp.derivePrivateKey(salt, "", nym);
+    const privateKey = srp.derivePrivateKey(salt, username, nym);
     const clientSession = srp.deriveSession(
       clientEphemeral.secret,
-      serverEphemeralPublic,
+      serverPublicEphemeral,
       salt,
-      "",
+      username,
       privateKey
     );
 
@@ -75,4 +76,4 @@ export async function verifyUser(nym: string, userID: string) {
   return verified;
 }
 
-// verifyUser("979516521166569514");
+verifyUser("", "979516521166569514");

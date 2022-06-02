@@ -5,14 +5,14 @@ export const client = createTRPCClient({
 });
 
 export async function serverEphemeral(
-  discordHandle,
-  clientEphemeralPublic: string
+  discordHandle: string,
+  serverPublicEphemeral: string
 ) {
-  const response: { salt: string; serverEphemeralPublic: string } =
+  const response: { salt: string; serverPublicEphemeral: string } =
     // @ts-ignore:next-line
     await client.query("SRP-Ephemeral", {
       discordHandle: discordHandle,
-      clientEphemeralPublic: clientEphemeralPublic,
+      serverPublicEphemeral: serverPublicEphemeral,
     });
 
   return response;
