@@ -23,8 +23,8 @@ export async function serverEphemeral(
 }
 
 export async function serverSession(
-  clientSessionProof: string,
-  discordHandle: string
+  discordHandle: string,
+  clientSessionProof: string
 ) {
   // @ts-ignore:next-line
   const response: string = await client.query("SRP-Session", {
