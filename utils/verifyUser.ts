@@ -48,7 +48,10 @@ export async function verifyUser(nym: string, userID: string) {
 
     //Send clientSession.proof to server
     //Get serverSession.proof from server
-    const serverSessionProof = await serverSession(clientSession.proof);
+    const serverSessionProof = await serverSession(
+      discordHandle,
+      clientSession.proof
+    );
 
     //Verify and add role
     try {
