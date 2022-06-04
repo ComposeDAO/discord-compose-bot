@@ -15,11 +15,13 @@ export async function verifyUser(nym: string, userID: string) {
   let joined = false;
   let verified = false;
 
-  try {
-    await server.members.fetch(userID);
-    joined = true;
-  } catch (error) {
-    joined = false;
+  while (!joined) {
+    try {
+      await server.members.fetch(userID);
+      joined = true;
+    } catch (error) {
+      joined = false;
+    }
   }
 
   if (joined) {
@@ -64,7 +66,9 @@ export async function verifyUser(nym: string, userID: string) {
 
       await member.roles.add(MEMBER_ROLE_ID);
       verified = true;
+      console.log(discordHandle + ": " + verified);
     } catch (error) {
+      console.error();
       verified = false;
     }
   } else {
@@ -72,6 +76,5 @@ export async function verifyUser(nym: string, userID: string) {
     verified = false;
   }
 
-  console.log(verified);
   return verified;
 }
