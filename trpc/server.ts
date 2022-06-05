@@ -15,7 +15,7 @@ const appRouter = trpc
       return isJoined;
     },
   })
-  .query("verifyDiscordUser", {
+  .query("VerifyDiscordUser", {
     input: z.object({
       nym: z.string(),
       discordUserID: z.string(),

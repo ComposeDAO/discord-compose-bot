@@ -1,11 +1,16 @@
 import { createTRPCClient } from "@trpc/client";
+import { httpLink } from "@trpc/client/links/httpLink";
 import fetch from "node-fetch";
 
 const globalAny = global as any;
 globalAny.fetch = fetch;
 
 export const client = createTRPCClient({
-  url: "https://0ntdlvgj79.execute-api.us-east-1.amazonaws.com",
+  links: [
+    httpLink({
+      url: "https://0ntdlvgj79.execute-api.us-east-1.amazonaws.com",
+    }),
+  ],
 });
 
 export async function serverEphemeral(
