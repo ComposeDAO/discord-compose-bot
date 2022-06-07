@@ -5,8 +5,10 @@ module.exports = {
     .setName("grant")
     .setDescription("A link to our Gitcoin grant"),
   async execute(interaction) {
-    await interaction.reply(
-      "https://gitcoin.co/grants/3384/secure-remote-password-with-ethereum-name-service"
-    );
+    await interaction.reply({
+      content:
+        "https://gitcoin.co/grants/3384/secure-remote-password-with-ethereum-name-service",
+      ephemeral: true,
+    });
   },
 };

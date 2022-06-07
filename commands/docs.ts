@@ -5,6 +5,9 @@ module.exports = {
     .setName("docs")
     .setDescription("A link to our documentation"),
   async execute(interaction) {
-    await interaction.reply("https://gitlab.com/Crypteriat/Compose_DAO");
+    await interaction.reply({
+      content: "https://gitlab.com/Crypteriat/Compose_DAO",
+      ephemeral: true,
+    });
   },
 };
