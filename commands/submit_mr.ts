@@ -2,8 +2,8 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("contribute")
-    .setDescription("Contribute to [work_item]"),
+    .setName("submit_mr")
+    .setDescription("Submit [merge_request]"),
   async execute(interaction) {
     await interaction.reply({
       content: "Not yet implemented!",

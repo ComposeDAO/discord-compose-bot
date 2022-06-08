@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("approve")
     .setDescription(
-      "Approve [merge_request | doc | work_item] (Not yet implemented!)"
+      "Approve [merge_request | doc | work_item]"
     ),
   async execute(interaction) {
     await interaction.reply({
